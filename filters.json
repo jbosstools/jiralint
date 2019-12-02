@@ -12,7 +12,7 @@
     "ds_board_californication": {
         "description": "Issues for Californication backlog", 
         "id": "12326937", 
-        "jql": "((project in (JBIDE, JBDS, ERT) AND component in (aerogear-hybrid, browsersim, cordovasim, nodejs, visual-page-editor-core, visual-page-editor-templates, xulrunner, javascript, JSDT, 'WTP Source Editing', jst, 'jsp/jsf/xml/html-source-editing','WTP Releng')) OR (project = CHE AND component in (agents, dashboard, docker, IDE, server))) AND status != Closed ORDER BY Rank ASC"
+        "jql": "(project = CHE AND component in (agents, dashboard, docker, IDE, server)) AND status != Closed ORDER BY Rank ASC"
     }, 
     "ds_board_docker": {
         "description": "Issues for Docker Tools backlog", 
