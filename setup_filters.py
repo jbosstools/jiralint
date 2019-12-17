@@ -138,7 +138,7 @@ parser = OptionParser(usage)
 #todo: move the shared options to common ?
 parser.add_option("-u", "--user", dest="jirauser", help="jirauser")
 parser.add_option("-p", "--pwd", dest="jirapwd", help="jirapwd")
-parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.jboss.org", help="Jira instance")
+parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.redhat.com", help="Jira instance")
 parser.add_option("-f", "--filters", dest="filterfiles", default="filters.json", help="comma separated list of filters to setup")
 parser.add_option("-v", "--verbose", dest="verbose", action="store_true", help="more verbose logging")
 (options, args) = parser.parse_args()
@@ -188,7 +188,7 @@ if options.filterfiles:
     print "|==="
     print "|Name|  Description| Query" 
     for name, fields in allfilters.items():
-        print "| https://issues.jboss.org/issues/?filter="+ fields['id'] + "[" + name + "] | " + fields['description'] + "| " + fields['jql']
+        print "| https://issues.redhat.com/issues/?filter="+ fields['id'] + "[" + name + "] | " + fields['description'] + "| " + fields['jql']
         
 
     
