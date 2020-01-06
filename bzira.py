@@ -130,7 +130,7 @@ def lookup_proxy(options, bug):
         print data['issues']
         return 
 
-# check if remote link exists, eg., is https://issues.jboss.org/rest/api/latest/issue/ERT-356/remotelink == [] or contains actual content?
+# check if remote link exists, eg., is https://issues.redhat.com/rest/api/latest/issue/ERT-356/remotelink == [] or contains actual content?
 def lookup_remotelink(options, jira_id):
     data = shared.jiraquery(options, "/rest/api/latest/issue/" + jira_id + "/remotelink")
     if (data and len(data) >=1):

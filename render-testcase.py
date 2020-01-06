@@ -86,7 +86,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
             component_lead_names = ""
             for component in fields['components']:
                 # print component['id']
-                # https://issues.jboss.org/rest/api/2/component/12311294
+                # https://issues.redhat.com/rest/api/2/component/12311294
                 if component['id'] in components:
                     component_data = components[component['id']]
                 else:
@@ -97,7 +97,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
                 component_name = str(component_data['name'])
                 if not 'lead' in component_data.keys():
                     raise Exception('[ERROR] No component lead set for component = ' + component_name + ' on issue ' + jira_key + 
-                        '.\n\n[ERROR] Contact an administrator to update https://issues.jboss.org/plugins/servlet/project-config/JBIDE/components')
+                        '.\n\n[ERROR] Contact an administrator to update https://issues.redhat.com/plugins/servlet/project-config/JBIDE/components')
                 component_lead_name = str(component_data['lead']['name'])
                 component_lead_names += "-" + xstr(component_lead_name)
                 component_lead_email = fetch_email(component_lead_name, options.unassignedjiraemail, email_addresses)
@@ -245,7 +245,7 @@ usage = "usage: %prog -u <username> -p <password> -r <report.json>\nGenerates ju
 parser = OptionParser(usage)
 parser.add_option("-u", "--user", dest="jirauser", help="username")
 parser.add_option("-p", "--pwd", dest="jirapwd", help="password")
-parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.jboss.org", help="Jira instance")
+parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.redhat.com", help="Jira instance")
 parser.add_option("-l", "--limit", dest="maxresults", default=200, help="maximum number of results to return from json queries (default 200)")
 parser.add_option("-r", "--report", dest="reportfile", default=None, help=".json file with list of queries to run")
 parser.add_option("-f", "--fromemail", dest="fromemail", default=None, help="email address from which to send mail; if omitted, no mail will be sent")
