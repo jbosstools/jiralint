@@ -34,7 +34,7 @@ Each entry has a report name used for identifying its results and then a jql for
 . Test it by running:
 
    ```
-   $ python -u user -p secret -s jiraserver -r <reportname>.json
+   $ python render-testcase.py -u user -p secret -s jiraserver -r <reportname>.json
    ```
 +
 Now for each report a -test.xml file will be created containing "test failures" for each jira matching the result.
