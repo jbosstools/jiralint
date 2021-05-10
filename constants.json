@@ -41,7 +41,7 @@
     "jbide_next_master_versions": {
 	"function": "listVersions",
 	"project": "JBIDE",
-	"pattern": "4.5.(?!x).*",
+	"pattern": "4...(?!x).*",
         "hasStartDate": true,
 	"released": false,
 	"codefrozen": false,
@@ -50,7 +50,7 @@
     "jbds_next_master_versions": {
 	"function": "listVersions",
 	"project": "JBDS",
-	"pattern": "11...(?!x).*",
+	"pattern": "12...(?!x).*",
         "hasStartDate": true,
 	"released": false,
 	"codefrozen": false,
