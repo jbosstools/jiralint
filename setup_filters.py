@@ -83,7 +83,7 @@ def listVersions(project, pattern=".*", released=None, hasReleaseDate=None, arch
 
     versions = shared.jiraquery(options,"/rest/api/latest/project/" + project + "/versions")
     if options.verbose:
-        print(pattern)
+        print "pattern: " + pattern
         #print codefrozen
         
     versionmatch = re.compile(pattern)
@@ -96,34 +96,41 @@ def listVersions(project, pattern=".*", released=None, hasReleaseDate=None, arch
     
     if released is not None:
         foundversions = filter(lambda v: released == v['released'], foundversions)
-        #print "after released: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after released: " + dumpVersions(foundversions)
     
     if hasReleaseDate is not None:
         foundversions = filter(lambda v: hasFieldOrNot('releaseDate', hasReleaseDate, v), foundversions)
-        #print "after hasReleaseDate: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after hasReleaseDate: " + dumpVersions(foundversions)
     
     if hasStartDate is not None:
         foundversions = filter(lambda v: hasFieldOrNot('startDate', hasStartDate, v), foundversions)
-        #print "after hasStartDate: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after hasStartDate: " + dumpVersions(foundversions)
     
     if archived is not None:
         foundversions = filter(lambda v: archived == v['archived'], foundversions)
-        #print "after archived: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after archived: " + dumpVersions(foundversions)
 
     if codefrozen is not None:
         foundversions = filter(lambda v: isCodefrozenToday(v, codefrozen), foundversions)
-        #print "after codefrozen: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after codefrozen: " + dumpVersions(foundversions)
     
     if upperLimit or lowerLimit:
         foundversions = foundversions[lowerLimit:upperLimit]
-        #print "after limits: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after limits: " + dumpVersions(foundversions)
     
     if index is not None:
         try:
             foundversions = [foundversions[index]]
         except IndexError:
             foundversions = []
-        #print "after index: " + dumpVersions(foundversions)
+        if options.verbose:
+            print "after index: " + dumpVersions(foundversions)
     
     foundversions = map(lambda v: v['name'], foundversions)
     
