@@ -2,22 +2,22 @@
 	"jbide_master_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.19.(?!x).*"
+		"pattern": "4.19.1.(?!x).*"
 	},
 	"jbds_master_versions": {
 		"function": "listVersions",
 		"project": "JBDS",
-		"pattern": "12.19.(?!x).*"
+		"pattern": "12.19.1.(?!x).*"
 	},
 	"jbide_maint_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.18.(?!x).*"
+		"pattern": "4.19.0.(?!x).*"
 	},
 	"jbds_maint_versions": {
 		"function": "listVersions",
 		"project": "JBDS",
-		"pattern": "12.18.(?!x).*"
+		"pattern": "12.19.0.(?!x).*"
 	},
 	"jbide_next_maint_versions": {
 		"function": "listVersions",
@@ -66,26 +66,26 @@
 	"jbide_freeze_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*",
+		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*|4.18.*",
 		"codefrozen": true
 	},
 	"jbds_freeze_versions": {
 		"function": "listVersions",
 		"project": "JBDS",
-		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*",
+		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*|12.18.*",
 		"codefrozen": true
 	},
 	"jbide_latest_freeze_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*",
+		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*|4.18.*",
 		"codefrozen": true,
 		"index": -1
 	},
 	"jbds_latest_freeze_versions": {
 		"function": "listVersions",
 		"project": "JBDS",
-		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*",
+		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*|12.18.*",
 		"codefrozen": true,
 		"index": -1
 	}
