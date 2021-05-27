@@ -1,98 +1,92 @@
 {
-    "jbide_master_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4.5.(?!x).*"
+	"jbide_master_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.19.1.*"
 	},
-    "jbds_master_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "11...(?!x).*"
+	"jbds_master_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "12.19.1.*"
 	},
-
-    "jbide_maint_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4.4.(?!x).*"
+	"jbide_maint_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.19.0.*"
 	},
-    "jbds_maint_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "10...(?!x).*"
+	"jbds_maint_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "12.19.0.*"
 	},
-
-    "jbide_next_maint_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4.4.(?!x).*",
-        "hasStartDate": true,
-	"released": false,
-	"index": 0
-    },
-    "jbds_next_maint_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "10...(?!x).*",
-        "hasStartDate": true,
-	"released": false,
-	"index": 0
-    },
-
-    "jbide_next_master_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4...(?!x).*",
-        "hasStartDate": true,
-	"released": false,
-	"codefrozen": false,
-	"index": 0
-    },
-    "jbds_next_master_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "12...(?!x).*",
-        "hasStartDate": true,
-	"released": false,
-	"codefrozen": false,
-	"index": 0
-    },
-
-    "jbds_bucket_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": ".*.x|LATER"
-    },
-    "jbide_bucket_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": ".*.x$|LATER"
-    },
-
-    "jbide_freeze_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4.3.*|4.4.*|4.5.*",
-	"codefrozen": true
-    },
-    "jbds_freeze_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "9.*|10.*|11.*",
-	"codefrozen": true
-    },
-
-    "jbide_latest_freeze_versions": {
-	"function": "listVersions",
-	"project": "JBIDE",
-	"pattern": "4.3.*|4.4.*|4.5.*",
-	"codefrozen": true,
-	"index" : -1
-    },
-    "jbds_latest_freeze_versions": {
-	"function": "listVersions",
-	"project": "JBDS",
-	"pattern": "9.*|10.*|11.*",
-	"codefrozen": true,
-	"index" : -1
-    }
+	"jbide_next_maint_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.19.(?!x).*",
+		"hasStartDate": true,
+		"released": false,
+		"index": 0
+	},
+	"jbds_next_maint_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "12.19.(?!x).*",
+		"hasStartDate": true,
+		"released": false,
+		"index": 0
+	},
+	"jbide_next_master_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.19.(?!x).*",
+		"hasStartDate": true,
+		"released": false,
+		"codefrozen": false,
+		"index": 0
+	},
+	"jbds_next_master_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "12.19.(?!x).*",
+		"hasStartDate": true,
+		"released": false,
+		"codefrozen": false,
+		"index": 0
+	},
+	"jbds_bucket_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": ".*.x$|LATER"
+	},
+	"jbide_bucket_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": ".*.x$|LATER"
+	},
+	"jbide_freeze_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*|4.18.*",
+		"codefrozen": true
+	},
+	"jbds_freeze_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*|12.18.*",
+		"codefrozen": true
+	},
+	"jbide_latest_freeze_versions": {
+		"function": "listVersions",
+		"project": "JBIDE",
+		"pattern": "4.3.*|4.4.*|4.5.*|4.6.*|4.9.*|4.11.*|4.12.*|4.13.*|4.14.*|4.15.*|4.16.*|4.17.*|4.18.*",
+		"codefrozen": true,
+		"index": -1
+	},
+	"jbds_latest_freeze_versions": {
+		"function": "listVersions",
+		"project": "JBDS",
+		"pattern": "9.*|10.*|11.*|12.0.*|12.9.*|12.11.*|12.12.*|12.13.*|12.14.*|12.15.*|12.16.*|12.17.*|12.18.*",
+		"codefrozen": true,
+		"index": -1
+	}
 }
