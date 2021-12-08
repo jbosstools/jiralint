@@ -1,7 +1,7 @@
 [
   {
     "Illegal fix version": {
-      "jql": "(filter='ds_lint_illegalfixversion') AND updatedDate >= -720d",
+      "jql": "(filter='ds_lint_illegalfixversion') AND updatedDate >= -360d",
       "description": "please set a valid fix version for this resolved/closed issue - cannot be blank, LATER, or #.#.x. See http://bit.ly/aTUeGq for help. "
     }
   },

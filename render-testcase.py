@@ -26,7 +26,7 @@ def fetch_email(username, fallback, email_addresses):
             found = str(user_data['emailAddress'])
             email_addresses[username]=found
         else:
-            print 'No email found for ' + username + ' using ' + str(fallback)
+            print('No email found for ' + username + ' using ' + str(fallback))
             found = fallback
             # don't cache if not found
         return found
@@ -55,7 +55,7 @@ def mailsend (smtphost, from_email, to_email, subject, message, recipients_list,
     msg = header + '\n' + message
     msg = msg.encode('utf8', 'replace')
     if options.verbose:
-        print msg
+        print(msg)
     if not options.dryrun:
         server = smtplib.SMTP(smtphost, 25)
         server.sendmail(from_email, recipients_list, msg)
@@ -125,7 +125,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
                 else:
                     assignee_email = fetch_email(assignee_name, None, email_addresses)
                     if not assignee_email:
-                        print 'No email found for assignee: ' + assignee_name
+                        print('No email found for assignee: ' + assignee_name)
                 assignees[assignee_name] = assignee_email
                 recipients[assignee_name] = assignee_email
                 if not assignee_name in email_addresses:
@@ -208,13 +208,13 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
                 # note: python uses `value if condition else otherValue`, which is NOT the same as `condition ? value : otherValue`
                 entry = ("Prepare (but do not send)" if options.dryrun else "Send") + " email with " + problem_count + \
                     " issue(s) to: " + (options.toemail + " (not " + assignee_email + ")" if options.toemail else assignee_email)
-                print entry
+                print(entry)
                 log = log + entry + "\n\n"
                 message = ''
                 o = urlparse(v['self'])
                 url = o.scheme + "://" + o.netloc + "/browse/"
                 for j, jira_key in enumerate(emails_to_send[assignee_email]):
-                    print " * " + url + jira_key
+                    print(" * " + url + jira_key)
                     message = message + emails_to_send[assignee_email][jira_key]['message']
                     log = log + emails_to_send[assignee_email][jira_key]['message']
                     # print emails_to_send[assignee_email][jira_key]['recipients']
@@ -245,6 +245,7 @@ usage = "usage: %prog -u <username> -p <password> -r <report.json>\nGenerates ju
 parser = OptionParser(usage)
 parser.add_option("-u", "--user", dest="jirauser", help="username")
 parser.add_option("-p", "--pwd", dest="jirapwd", help="password")
+parser.add_option("-k", "--token", dest="jiratoken", help="token")
 parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.redhat.com", help="Jira instance")
 parser.add_option("-l", "--limit", dest="maxresults", default=200, help="maximum number of results to return from json queries (default 200)")
 parser.add_option("-r", "--report", dest="reportfile", default=None, help=".json file with list of queries to run")
@@ -264,7 +265,7 @@ if (not options.jirauser or not options.jirapwd) and "userpass" in os.environ:
     options.jirauser = userpass_bits[0]
     options.jirapwd = userpass_bits[1]
 
-if not options.jirauser or not options.jirapwd:
+if (not options.jirauser or not options.jirapwd) and not options.jiratoken:
     parser.error("Missing username or password")
 
 if options.fromemail and (not options.unassignedjiraemail or not options.smtphost):
@@ -275,7 +276,7 @@ email_addresses = {}
 components = {}
     
 if options.reportfile:
-    print "Using reports defined in " + options.reportfile
+    print("Using reports defined in " + options.reportfile)
     reports = json.load(open(options.reportfile, 'r'))
 
     for report in reports:
@@ -285,11 +286,11 @@ if options.reportfile:
             data = shared.jiraquery(options, "/rest/api/2/search?" + urllib.urlencode(payload))
             print(str(len(data['issues'])) + " issues found with '" + issue_type.lower() + "'")
             if options.verbose:
-                print data
-                print options
+                print(data)
+                print(options)
             email_addresses = render(issue_type, fields['description'].encode('utf8','replace'), data, data['issues'], fields['jql'], options, email_addresses, components)
 else:
-    print "Generating based on .json found on standard in"
+    print("Generating based on .json found on standard in")
     data = json.load(sys.stdin)
     email_addresses = render('stdin', 'Query from standard in.', data, data['issues'], None, options, email_addresses, components)
 
