@@ -2,12 +2,12 @@
     "ds_board_everything": {
         "description": "board for everything", 
         "id": "12326939", 
-        "jql": "Project in (JBIDE, JBDS, ERT) AND status != Closed ORDER BY Rank ASC"
+        "jql": "Project in (JBIDE, ERT) AND status != Closed ORDER BY Rank ASC"
     }, 
     "ds_board_everythingelse": {
         "description": "board for everything else not part of other boards", 
         "id": "12326941", 
-        "jql": "Project in (JBIDE, JBDS, ERT) and not filter=ds_board_assparta and not filter=ds_board_californication and not filter=ds_board_buildnext and not filter=ds_board_docker AND status != Closed ORDER BY Rank ASC"
+        "jql": "Project in (JBIDE, ERT) and not filter=ds_board_assparta and not filter=ds_board_californication and not filter=ds_board_buildnext and not filter=ds_board_docker AND status != Closed ORDER BY Rank ASC"
     }, 
     "ds_freeze_unresolved": {
         "description": "Unresolved issues in frozen versions", 
@@ -37,7 +37,7 @@
     "ds_my_latertriage": {
         "description": "Stuff in .x or LATER buckets", 
         "id": "12323035", 
-        "jql": "filter='ds_mystuff' and filter='ds_unresolved' and (project = 'JBIDE' and fixversion in ( %(jbide_bucket_versions)s ) or (project = 'JBDS' and fixversion in ( %(jbds_bucket_versions)s )))"
+        "jql": "filter='ds_mystuff' and filter='ds_unresolved' and project = 'JBIDE' and fixversion in ( %(jbide_bucket_versions)s ) "
     }, 
     "ds_my_needtriage": {
         "description": "Non triaged stuff that I'm assigned or leading", 
@@ -57,7 +57,7 @@
     "ds_needtriage": {
         "description": "Non triaged stuff", 
         "id": "12323095", 
-        "jql": "fixVersion is empty and filter='ds_unresolved' and project in (JBIDE,JBDS)"
+        "jql": "fixVersion is empty and filter='ds_unresolved' and project in (JBIDE)"
     }, 
     "ds_next_maint_unresolved": {
         "description": "unresolved work for next maintanence", 
