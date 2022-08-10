@@ -17,7 +17,7 @@
     "ds_board_docker": {
         "description": "Issues for Docker Tools backlog", 
         "id": "12327830", 
-        "jql": "((project in (JBIDE) AND component in (docker)) OR (project = ERT AND component = 'Linux Tools')) ORDER BY Rank ASC"
+        "jql": "project in (JBIDE) AND component in (docker) ORDER BY Rank ASC"
     }, 
     "ds_cdwtriage": {
         "description": "Issues are New and have no target release set", 
