@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 from optparse import OptionParser
 from common import shared
-import urllib2
+from urllib.error import HTTPError
 import re
 import json
 import sys
@@ -95,27 +96,27 @@ def listVersions(project, pattern=".*", released=None, hasReleaseDate=None, arch
     print("after versionmatch: " + dumpVersions(foundversions))
     
     if released is not None:
-        foundversions = filter(lambda v: released == v['released'], foundversions)
+        foundversions = list(filter(lambda v: released == v['released'], foundversions))
         if options.verbose:
             print("after released: " + dumpVersions(foundversions))
     
     if hasReleaseDate is not None:
-        foundversions = filter(lambda v: hasFieldOrNot('releaseDate', hasReleaseDate, v), foundversions)
+        foundversions = list(filter(lambda v: hasFieldOrNot('releaseDate', hasReleaseDate, v), foundversions))
         if options.verbose:
             print("after hasReleaseDate: " + dumpVersions(foundversions))
     
     if hasStartDate is not None:
-        foundversions = filter(lambda v: hasFieldOrNot('startDate', hasStartDate, v), foundversions)
+        foundversions = list(filter(lambda v: hasFieldOrNot('startDate', hasStartDate, v), foundversions))
         if options.verbose:
             print("after hasStartDate: " + dumpVersions(foundversions))
     
     if archived is not None:
-        foundversions = filter(lambda v: archived == v['archived'], foundversions)
+        foundversions = list(filter(lambda v: archived == v['archived'], foundversions))
         if options.verbose:
             print("after archived: " + dumpVersions(foundversions))
 
     if codefrozen is not None:
-        foundversions = filter(lambda v: isCodefrozenToday(v, codefrozen), foundversions)
+        foundversions = list(filter(lambda v: isCodefrozenToday(v, codefrozen), foundversions))
         if options.verbose:
             print("after codefrozen: " + dumpVersions(foundversions))
     
@@ -187,7 +188,7 @@ if options.filterfiles:
                 allfilters[name] = fields
                 newfilters[name] = fields
                 saveFilters(filterfile, newfilters) # saving every succesful iteration to not loose a filter id 
-            except urllib2.HTTPError as e:
+            except HTTPError as e:
                 print("Problem with setting up filter %s with JQL = %s" % (data['name'], data['jql']))
 
     print("Jira filters in asciidoc: ")

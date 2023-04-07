@@ -1,72 +1,72 @@
 {
     "ds_board_everything": {
-        "description": "board for everything", 
-        "id": "12326939", 
+        "description": "board for everything",
+        "id": "12326939",
         "jql": "Project in (JBIDE) AND status != Closed ORDER BY Rank ASC"
-    }, 
+    },
     "ds_board_everythingelse": {
-        "description": "board for everything else not part of other boards", 
-        "id": "12326941", 
+        "description": "board for everything else not part of other boards",
+        "id": "12326941",
         "jql": "Project in (JBIDE) and not filter=ds_board_assparta and not filter=ds_board_californication and not filter=ds_board_buildnext and not filter=ds_board_docker AND status != Closed ORDER BY Rank ASC"
-    }, 
+    },
     "ds_freeze_unresolved": {
-        "description": "Unresolved issues in frozen versions", 
-        "id": "12323974", 
+        "description": "Unresolved issues in frozen versions",
+        "id": "12323974",
         "jql": "filter='ds_freeze' and filter='ds_unresolved'"
-    }, 
+    },
     "ds_maint_noack": {
-        "description": "issues that are missing ack or nack", 
-        "id": "12323333", 
+        "description": "issues that are missing ack or nack",
+        "id": "12323333",
         "jql": "filter='ds_maint' and 'CDW release' = '?'"
-    }, 
+    },
     "ds_master_noack": {
-        "description": "issues that are missing ack or nack", 
-        "id": "12323334", 
+        "description": "issues that are missing ack or nack",
+        "id": "12323334",
         "jql": "filter='ds_master' and 'CDW release' = '?'"
-    }, 
+    },
     "ds_my_freeze": {
-        "description": "Issues assigned or lead by user that is marked for freeze", 
-        "id": "12323043", 
+        "description": "Issues assigned or lead by user that is marked for freeze",
+        "id": "12323043",
         "jql": "filter='ds_mystuff' and filter='ds_freeze'"
-    }, 
+    },
     "ds_my_freeze_unresolved": {
-        "description": "Issues assigned or lead by user that is marked for freeze and unresolved", 
-        "id": "12323083", 
+        "description": "Issues assigned or lead by user that is marked for freeze and unresolved",
+        "id": "12323083",
         "jql": "filter='ds_mystuff' and filter='ds_freeze' and filter='ds_unresolved'"
-    }, 
+    },
     "ds_my_latertriage": {
-        "description": "Stuff in .x or LATER buckets", 
-        "id": "12323035", 
+        "description": "Stuff in .x or LATER buckets",
+        "id": "12323035",
         "jql": "filter='ds_mystuff' and filter='ds_unresolved' and project = 'JBIDE' and fixversion in ( %(jbide_bucket_versions)s ) "
-    }, 
+    },
     "ds_my_needtriage": {
-        "description": "Non triaged stuff that I'm assigned or leading", 
-        "id": "12323034", 
+        "description": "Non triaged stuff that I'm assigned or leading",
+        "id": "12323034",
         "jql": "filter='ds_mystuff' and filter='ds_needtriage'"
-    }, 
+    },
     "ds_my_next_maint_unresolved": {
-        "description": "my unresolved work for next maintanence", 
-        "id": "12323077", 
+        "description": "my unresolved work for next maintanence",
+        "id": "12323077",
         "jql": "filter='ds_mystuff' and filter='ds_next_maint' and filter='ds_unresolved'"
-    }, 
+    },
     "ds_my_next_master_unresolved": {
-        "description": "my unresolved work for next version", 
-        "id": "12323076", 
+        "description": "my unresolved work for next version",
+        "id": "12323076",
         "jql": "filter='ds_mystuff' and filter='ds_next_master' and filter='ds_unresolved'"
-    }, 
+    },
     "ds_needtriage": {
-        "description": "Non triaged stuff", 
-        "id": "12323095", 
+        "description": "Non triaged stuff",
+        "id": "12323095",
         "jql": "fixVersion is empty and filter='ds_unresolved' and project in (JBIDE)"
-    }, 
+    },
     "ds_next_maint_unresolved": {
-        "description": "unresolved work for next maintanence", 
-        "id": "12323075", 
+        "description": "unresolved work for next maintanence",
+        "id": "12323075",
         "jql": "filter='ds_next_maint' and filter='ds_unresolved'"
-    }, 
+    },
     "ds_next_master_unresolved": {
-        "description": "unresolved work for next version", 
-        "id": "12323074", 
+        "description": "unresolved work for next version",
+        "id": "12323074",
         "jql": "filter='ds_next_master' and filter='ds_unresolved'"
     }
 }

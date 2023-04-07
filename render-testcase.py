@@ -1,4 +1,5 @@
-from urlparse import urlparse
+#!/usr/bin/env python3
+from urllib.parse import urlparse, urlencode
 import urllib, sys, os
 ##import yaml  not on rhel4
 import json
@@ -21,7 +22,7 @@ def fetch_email(username, fallback, email_addresses):
     else:
         found = None
         payload = {'username': username}
-        user_data = shared.jiraquery(options, "/rest/api/2/user?" + urllib.urlencode(payload))
+        user_data = shared.jiraquery(options, "/rest/api/2/user?" + urlencode(payload))
         if 'emailAddress' in user_data:
             found = str(user_data['emailAddress'])
             email_addresses[username]=found
@@ -196,7 +197,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
         testsuite.appendChild(testcase)
  
     print('Write to ' + issue_type.lower().replace(" ","") + "-test.xml")
-    output = open(issue_type.lower().replace(" ","") + "-test.xml", 'w')
+    output = open(issue_type.lower().replace(" ","") + "-test.xml", 'wb')
     output.write(doc.toprettyxml(indent="  ").encode('utf8', 'replace'))
 
     # send emails & log to file
@@ -283,7 +284,7 @@ if options.reportfile:
         for issue_type,fields in report.items():
             print("Check for '"  + issue_type.lower() + "'")
             payload = {'jql': fields['jql'], 'maxResults' : options.maxresults}
-            data = shared.jiraquery(options, "/rest/api/2/search?" + urllib.urlencode(payload))
+            data = shared.jiraquery(options, "/rest/api/2/search?" + urlencode(payload))
             print(str(len(data['issues'])) + " issues found with '" + issue_type.lower() + "'")
             if options.verbose:
                 print(data)

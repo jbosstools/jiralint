@@ -1,12 +1,8 @@
+#!/usr/bin/env python3
 from optparse import OptionParser
 from common import shared
-import urllib2
-import re
+from urllib.error import HTTPError
 import json
-import sys
-import os
-import time
-import datetime
 
 
 usage = "usage: %prog -u <jirauser> -p <jirapwd> -f <filters.json>\nCreate/maintain set of filters defined in filters.json."
@@ -31,19 +27,19 @@ if options.filterfiles:
 
     filterfiles = options.filterfiles.split(',')
     for filterfile in filterfiles:
-        print "Processing filters found in " + filterfile
+        print ("Processing filters found in " + filterfile)
         filters = json.load(open(filterfile, 'r'))
 
         newfilters = filters.copy()
         for name, fields in filters.items():
             try:
-                print "filter " + name
+                print ("filter " + name)
                 
                 if 'id' in fields:
-                    print 'updating filter ' + name + "->" + fields['id']
-                    print shared.jiraquery(options, "/rest/api/latest/filter/" + fields['id'])
+                    print ('updating filter ' + name + "->" + fields['id'])
+                    print (shared.jiraquery(options, "/rest/api/latest/filter/" + fields['id']))
                 else:
-                    print 'filter without id, skipping'
-            except urllib2.HTTPError, e:
-                print "Problem with setting up filter %s with JQL = %s" % (fields['id'], fields['jql']);
+                    print ('filter without id, skipping')
+            except HTTPError as e:
+                print ("Problem with setting up filter %s with JQL = %s" % (fields['id'], fields['jql']));
     
