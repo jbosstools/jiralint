@@ -219,8 +219,8 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
 
                 # wrap generated message w/ header and footer
                 message = "This email is the result of a query to locate stalled/invalid jiras. Please fix them. Thanks!" + \
-                    "\n\nGlobal Query:   "  + options.jiraserver + "/issues/?jql=" + urllib.quote_plus(jql) +  \
-                    "\n\nPersonal Query: "  + options.jiraserver + "/issues/?jql=" + urllib.quote_plus(jql + " AND assignee = currentUser()") + \
+                    "\n\nGlobal Query:   "  + options.jiraserver + "/issues/?jql=" + urllib.parse.quote_plus(jql) +  \
+                    "\n\nPersonal Query: "  + options.jiraserver + "/issues/?jql=" + urllib.parse.quote_plus(jql + " AND assignee = currentUser()") + \
                     "\n\n----------------------------\n\n" + message
                 # send to yourself w/ --toemail override, or else send to actual recipient
                 # note: python uses `value if condition else otherValue`, which is NOT the same as `condition ? value : otherValue`
@@ -233,7 +233,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
                     options)
     
     if log:
-        output = open(issue_type.lower().replace(" ","") + ".log", 'w')
+        output = open(issue_type.lower().replace(" ","") + ".log", 'wb')
         output.write(log.encode('utf8', 'replace'))
 
     return email_addresses
