@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 from urllib.parse import urlparse, urlencode
 import urllib, sys, os
-##import yaml  not on rhel4
 import json
 import smtplib
 import datetime
-from datetime import timedelta
-## from dateutil.parser import parse not on rhel6
 import pprint
 from xml.dom.minidom import Document
 from optparse import OptionParser
@@ -172,7 +169,7 @@ def render(issue_type, issue_description, jira_env, issues, jql, options, email_
                 ("Assignee(s): " + assignee_info if assignee_info else "Assignee: None set.") + "\n" + \
                 ("Lead(s): " + lead_info + "\n" if lead_info else "") + \
                 ("Component(s): " + component_name if component_name else "Component: None set - please fix.") + "\n" + \
-                "Problem: " + issue_type + " - " + issue_description + "\n" + \
+                "Problem: " + str(issue_type) + " - " + str(issue_description) + "\n" + \
                 "Last Update: " + str(lastupdate) + "\n\n----------------------------\n\n"
 
             error_text_node = doc.createTextNode(error_text)
