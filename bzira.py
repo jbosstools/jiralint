@@ -46,6 +46,7 @@ def parse_options():
     parser = OptionParser(usage)
     parser.add_option("-u", "--user", dest="jirauser", help="jirauser")
     parser.add_option("-p", "--pwd", dest="jirapwd", help="jirapwd")
+    parser.add_option("-k", "--jiratoken", dest="jiratoken", help="JIRA Token")
     parser.add_option("-s", "--server", dest="jiraserver", default="https://issues.stage.jboss.org", help="Jira instance")
     parser.add_option("-B", "--bzserver", dest="bzserver", default="https://bugs.eclipse.org/bugs/", help="BZ instance, eg., https://bugs.eclipse.org/bugs/ or https://bugzilla.redhat.com/")
     parser.add_option("-I", "--issue-prefix", dest="issue_prefix", default="EBZ", help="prefix to use on issue links: RHBZ, EBZ, etc.")
@@ -81,8 +82,8 @@ def parse_options():
         options.jirauser = userpass_bits[0]
         options.jirapwd = userpass_bits[1]
 
-    if not options.jirauser or not options.jirapwd:
-        parser.error("Missing jirauser or jirapwd")
+    if ((not options.jirauser or not options.jirapwd) and not options.jiratoken):
+        parser.error("Missing jirauser/jirapwd or jiratoken")
 
     return options
 
