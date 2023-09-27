@@ -1,15 +1,13 @@
+#!/usr/bin/env python3
 import bugzilla
-from jira.client import JIRA, JIRAError
+from jira import JIRA, JIRAError
 from optparse import OptionParser
 import urllib, sys, os
 import pprint
 from common import shared
-import pickle
 import re
 from datetime import datetime
 from datetime import timedelta
-import time
-import pytz
 import sys
 from collections import defaultdict
 import logging
@@ -17,16 +15,7 @@ import logging
 ######################################################
 ## Jenkins usage:
 # 
-## Python is in /usr/bin/python2.7 or /usr/bin/python but not on all slaves
-# DOES NOT RUN with Python 3.5
-# whereis python && python -V
-# if [[ ! -w ${HOME}/.local/bin ]]; then pipFolder=${HOME}/.local/bin; else pipFolder=${WORKSPACE}/.local/bin; fi
-# mkdir -p ${pipFolder}
-# if [[ ! -x ${pipFolder}/pip ]]; then  # get pip
-#  curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
-#  python -W ignore get-pip.py --user
-# fi
-# pip install --upgrade --user pip bugzillatools python-bugzilla jira pytz pbr funcsigs
+# python -m pip install --upgrade --user pip bugzillatools python-bugzilla jira pytz pbr funcsigs
 # 
 ######################################################
 #
@@ -96,7 +85,6 @@ jira_failure = defaultdict(set)
 
 ### Enables http debugging
 if httpdebug:
-    import requests
     import httplib
     httplib.HTTPConnection.debuglevel = 1
     logging.basicConfig() # you need to initialize logging, otherwise you will not see anything from requests
@@ -127,8 +115,8 @@ def lookup_proxy(options, bug):
     elif (count == 1):
         return data['issues'][0]
     else:
-        print "[WARNING] Multiple issues found for " + str(bug.id)
-        print data['issues']
+        print("[WARNING] Multiple issues found for " + str(bug.id))
+        print(data['issues'])
         return 
 
 # check if remote link exists, eg., is https://issues.redhat.com/rest/api/latest/issue/ERT-356/remotelink == [] or contains actual content?
@@ -144,7 +132,7 @@ def lookup_remotelink(options, jira_id):
 def create_remotelink(jira_id, bug):
     link_dict = { "title": options.issue_prefix + " #" + str(bug.id), "url": bug.weburl }
     if (options.verbose):
-        print "[DEBUG] Add remotelink: " + str(link_dict)
+        print("[DEBUG] Add remotelink: " + str(link_dict))
     jira.add_simple_link(jira_id, object=link_dict)
 
 ## just test the mapping but don't create anything
@@ -165,22 +153,22 @@ def create_proxy_jira_dict(options, bug):
             else:
                 accept = raw_input("Create " + jiraversion + " ?")
             if accept.capitalize() in "Y":
-                print norm + "[WARNING] Version '" + green + jiraversion + norm + "' mapped from '" + \
+                print(norm + "[WARNING] Version '" + green + jiraversion + norm + "' mapped from '" + \
                     green + bug.target_milestone + norm + "' not found in " + green + options.jira_project + \
-                    norm + ". Please create it or fix the mapping. " + blue + "Bug: " + str(bug) + norm
+                    norm + ". Please create it or fix the mapping. " + blue + "Bug: " + str(bug) + norm)
                 newv = jira.create_version(jiraversion, options.jira_project)
                 versions = jira.project_versions(options.jira_project)
                 jiraversion = newv.name
             else:
-                print red + "[ERROR] Version '" + green + jiraversion + norm + "' mapped from '" + \
+                print(red + "[ERROR] Version '" + green + jiraversion + norm + "' mapped from '" + \
                     green + bug.target_milestone + red + "' not found in " + green + options.jira_project + \
-                    red + ". Please create it or fix the mapping. " + blue + "Bug: " + str(bug) + norm
+                    red + ". Please create it or fix the mapping. " + blue + "Bug: " + str(bug) + norm)
                 missing_versions[jiraversion].add(bug)
                 return
             
         if (not jiraversion):
-            print red + "[ERROR] No mapping for '" + green + bug.target_milestone + red \
-                + "'. Please fix the mapping. " + blue + "Bug: " + str(bug) + norm 
+            print(red + "[ERROR] No mapping for '" + green + bug.target_milestone + red \
+                + "'. Please fix the mapping. " + blue + "Bug: " + str(bug) + norm )
             jiraversion = "Missing Map"
             return
             
@@ -388,12 +376,12 @@ def bz_to_jira_version(options, bug):
         jiraversion = b2j(bzversion)
         if (jiraversion):
             #if (options.verbose):
-            print "[INFO] " + "Map: " + yellow + bug.product + norm + " / " + yellow + bzversion + norm + " -> " + green + str(jiraversion) + norm
+            print("[INFO] " + "Map: " + yellow + bug.product + norm + " / " + yellow + bzversion + norm + " -> " + green + str(jiraversion) + norm)
             return jiraversion
         else:
-            print red + "[ERROR] " + " Unknown version for " + yellow + bug.product + red + " / " + yellow + bzversion + norm
+            print(red + "[ERROR] " + " Unknown version for " + yellow + bug.product + red + " / " + yellow + bzversion + norm)
     else:
-        print red + "[ERROR] " + " No version mapper found for " + yellow + bug.product + norm
+        print(red + "[ERROR] " + " No version mapper found for " + yellow + bug.product + norm)
 
 bz2jira_priority = {
      'blocker' : 'Blocker',
@@ -467,8 +455,8 @@ def process(bug, bugs):
     difference = now - changeddate
 
     if (options.verbose):
-        print ""
-        print '[DEBUG] %s - %s [%s, %s, [%s]] {%s} (%s) -> ' % (bug.id, bug.summary, bug.product, bug.component, bug.target_milestone, bug.delta_ts, difference) + yellow + bzserver + "show_bug.cgi?id=" + str(bug.id) + norm
+        print("")
+        print('[DEBUG] %s - %s [%s, %s, [%s]] {%s} (%s) -> ' % (bug.id, bug.summary, bug.product, bug.component, bug.target_milestone, bug.delta_ts, difference) + yellow + bzserver + "show_bug.cgi?id=" + str(bug.id) + norm)
     else:
         sys.stdout.write('.')
         
@@ -479,7 +467,7 @@ def process(bug, bugs):
         
         if (proxyissue):
             if (options.verbose):
-                print "[INFO] " + yellow + bzserver + "show_bug.cgi?id=" + str(bug.id) + norm + " already proxied as " + blue + options.jiraserver + "/browse/" + proxyissue['key']  + norm + "; checking if something needs updating/syncing."
+                print("[INFO] " + yellow + bzserver + "show_bug.cgi?id=" + str(bug.id) + norm + " already proxied as " + blue + options.jiraserver + "/browse/" + proxyissue['key']  + norm + "; checking if something needs updating/syncing.")
 
             fields = {}
             if (not next((c for c in proxyissue['fields']['components'] if bug.product == c['name']), None)):
@@ -491,11 +479,11 @@ def process(bug, bugs):
                 #TODO see if fixversions matches, see if status/resolution matches?
                 
                 if len(fields)>0:
-                    print "Updating " + proxyissue['key'] + " with " + str(fields)
+                    print("Updating " + proxyissue['key'] + " with " + str(fields))
                     isbug = jira.issue(proxyissue['key'])
                     isbug.update(fields)
                 else:
-                    print "No detected changes."
+                    print("No detected changes.")
 
             # check if there's an existing remotelink; if not, add one
             remotelink = lookup_remotelink(options, proxyissue['key'])
@@ -503,18 +491,18 @@ def process(bug, bugs):
                 create_remotelink(proxyissue['key'],bug)
         else:
             if (options.dryrun):
-                print "[INFO] Want to create jira for " + str(bug)
+                print("[INFO] Want to create jira for " + str(bug))
             else:
-                print "[INFO] Creating jira for " + str(bug)
+                print("[INFO] Creating jira for " + str(bug))
             if (options.verbose):
-                print "[DEBUG] " + str(issue_dict)
+                print("[DEBUG] " + str(issue_dict))
 
             if (options.dryrun):
                 return
             
             newissue = jira.create_issue(fields=issue_dict)
             bugs.append(newissue)
-            print "[INFO] Created " + green + options.jiraserver + "/browse/" + newissue.key + norm
+            print("[INFO] Created " + green + options.jiraserver + "/browse/" + newissue.key + norm)
 
             # Setup issue link to options.issue_prefix = RHBZ / EBZ
             create_remotelink(newissue.key,bug)
@@ -546,7 +534,7 @@ def process(bug, bugs):
                         else:
                             jira.transition_issue(newissue, trans["id"])
                     except JIRAError as je:
-                        print je
+                        print (je)
                         jira_failure[newissue.key].add("Could not perform transition" + str(trans) + " error: " + str(je))
                 #else:
                     #print "No transition needed"
@@ -592,8 +580,8 @@ else:
 # get current datetime in UTC for comparison to bug.delta_ts, which is also in UTC; use this diff to ignore processing old bugzillas
 now = datetime.utcnow()
 if (options.verbose):
-    print "[DEBUG] " + "Current datetime: " + yellow + str(now) + " (UTC)" + norm
-    print "" 
+    print ("[DEBUG] " + "Current datetime: " + yellow + str(now) + " (UTC)" + norm)
+    print ("") 
 
 # calculate relative date if options.start_date not provided but minimum_age_to_process is provided
 if (options.start_date):
@@ -616,25 +604,24 @@ bz = bugzilla.Bugzilla(url=bzserver + "xmlrpc.cgi")
 
 queryobj = bz.url_to_query(query)
 
-print "[DEBUG] xmlrpc post: " + purple + str(queryobj) + norm
+print ("[DEBUG] xmlrpc post: " + purple + str(queryobj) + norm)
 # print equivalent web url since xmlrpc.cgi uses last_change_time, but buglist.cgi queries use chfieldfrom
-print "[DEBUG] buglist get: " + purple + query.replace("last_change_time","chfieldfrom") + norm
+print ("[DEBUG] buglist get: " + purple + query.replace("last_change_time","chfieldfrom") + norm)
     
 issues = bz.query(queryobj)
 
-print "[DEBUG] " + "Found " + yellow + str(len(issues)) + norm + " bugzillas to process"
-
+print ("[DEBUG] " + "Found " + yellow + str(len(issues)) + norm + " bugzillas to process")
 if (len(issues) > 0):
 
-    print "[INFO] " + "Logging in to " + purple + options.jiraserver + norm
-    jira = JIRA(options={'server':options.jiraserver}, basic_auth=(options.jirauser, options.jirapwd))
+    print ("[INFO] " + "Logging in to " + purple + options.jiraserver + norm)
+    jira = JIRA(options={'server':options.jiraserver}, token_auth=(options.jiratoken))
 
     #TODO should get these data into something more structured than individual global variables.
     versions = jira.project_versions(options.jira_project)
     components = jira.project_components(options.jira_project)
 
     if (options.verbose):
-        print "[DEBUG] " + "Found " + yellow + str(len(components)) + norm + " components and " + yellow + str(len(versions)) + norm + " versions in JIRA"
+        print ("[DEBUG] " + "Found " + yellow + str(len(components)) + norm + " components and " + yellow + str(len(versions)) + norm + " versions in JIRA")
 
     resolutions = jira.resolutions()
     statuses = jira.statuses()
@@ -645,29 +632,29 @@ if (len(issues) > 0):
         try:
             process(bug, createdbugs)
         except ValueError as ve:
-            print red + "[ERROR] Issue when processing " + blue + str(bug) + red + ". Cannot determine if the bug was created or not. See details above. " + norm
-            print ve
+            print (red + "[ERROR] Issue when processing " + blue + str(bug) + red + ". Cannot determine if the bug was created or not. See details above. " + norm)
+            print (ve)
 
 
     ## report issues
     for v,k in missing_versions.iteritems():
-        print "Missing version '" + v + "'"
+        print ("Missing version '" + v + "'")
         for b in k:
-            print "  " + b.product + ": " + b.weburl
+            print ("  " + b.product + ": " + b.weburl)
         
     for v,k in jira_failure.iteritems():
-        print "Jira " + v + " gave following errors:"
+        print ("Jira " + v + " gave following errors:")
         for b in k:
-            print "  " + b
+            print ("  " + b)
             
     # Prompt user to accept new JIRAs or delete them
     if (len(createdbugs)>0 and not options.autoaccept):
         accept = raw_input("Accept " + str(len(createdbugs)) + " created JIRAs? [Y/n] ")
         if accept.capitalize() in ["N"]:
             for b in createdbugs:
-                print "[INFO] " + "Delete " + red + options.jiraserver + "/browse/" + str(b) + norm
+                print ("[INFO] " + "Delete " + red + options.jiraserver + "/browse/" + str(b) + norm)
                 b.delete()
     else:
-        print "[INFO] " + str(len(createdbugs)) + " JIRAs created (from " + str(len(issues)) + " issues) [since " + last_change_time.strftime('%Y-%m-%d+%H:%M') + "]"
+        print ("[INFO] " + str(len(createdbugs)) + " JIRAs created (from " + str(len(issues)) + " issues) [since " + last_change_time.strftime('%Y-%m-%d+%H:%M') + "]")
 else:
-    print "[INFO] No bugzillas found matching the query. Nothing to do."
+    print ("[INFO] No bugzillas found matching the query. Nothing to do.")
