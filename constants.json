@@ -2,7 +2,7 @@
 	"jbide_master_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.30.0.*"
+		"pattern": "4.29.1.*"
 	},
 	"jbide_maint_versions": {
 		"function": "listVersions",
@@ -12,7 +12,7 @@
 	"jbide_next_maint_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.30.(?!x).*",
+		"pattern": "4.29.(?!x).*",
 		"hasStartDate": true,
 		"released": false,
 		"index": 0
@@ -20,7 +20,7 @@
 	"jbide_next_master_versions": {
 		"function": "listVersions",
 		"project": "JBIDE",
-		"pattern": "4.30.(?!x).*",
+		"pattern": "4.29.(?!x).*",
 		"hasStartDate": true,
 		"released": false,
 		"codefrozen": false,
